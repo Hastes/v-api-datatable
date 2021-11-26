@@ -6,18 +6,22 @@ import { VueConstructor } from 'vue/types';
 import VFD from './components/VApiDatatable/index.vue';
 import VCD from './components/VCrudDatatable/index.vue';
 
-import { REGISTRATION_PROPS } from './constants';
+import { REGISTRATION_PROPS, REGISTRATION_CRUD_PROPS } from './constants';
 import { DatatablePluginOptions } from './components/types';
 
 Vue.use(Vuetify);
 
 export class VFetchDatatablePlguin {
   public install(Vue: VueConstructor, options: DatatablePluginOptions = {}) {
+    const availableProps = {
+      ...REGISTRATION_PROPS,
+      ...REGISTRATION_CRUD_PROPS,
+    };
     const extraProps = Object.entries(options).reduce((acc, [key, value]) => {
       return {
         ...acc,
         [key]: {
-          ...REGISTRATION_PROPS[key as keyof DatatablePluginOptions],
+          ...availableProps[key as keyof DatatablePluginOptions],
           default: value,
         },
       };

@@ -27,7 +27,6 @@
                 :is="header.component"
                 :label="header.text"
                 :error-messages="errors"
-                solo
               )
         .my-3
         v-card-actions
