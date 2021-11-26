@@ -47,6 +47,8 @@
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 
+import { REGISTRATION_CRUD_PROPS } from '@/constants.ts';
+
 export default {
   components: {
     ValidationObserver,
@@ -60,7 +62,8 @@ export default {
     methodUpdate: { type: Function, default: null },
     // Декоратор данных перед отправкой
     serializeData: { type: Function, default: (data) => data },
-    preSave: { type: Function, default: (method, data) => method(data) },
+
+    ...REGISTRATION_CRUD_PROPS,
   },
   data: () => ({
     loading: false,
@@ -79,25 +82,25 @@ export default {
     close() {
       this.$emit('input', false);
     },
-    async save() {
-      this.loading = true;
-
-      const ATTRS = {
-        update: {
+    getMode() {
+      if (this.instance)
+        return {
           method: this.methodUpdate,
           args: [this.instance.id],
           data: this.serializeData(this.editItem),
           successCallback: () => this.$emit('updated'),
-        },
-        create: {
-          method: this.methodCreate,
-          args: [],
-          data: this.serializeData(this.editItem),
-          successCallback: () => this.$emit('created'),
-        },
+        };
+      return {
+        method: this.methodCreate,
+        args: [],
+        data: this.serializeData(this.editItem),
+        successCallback: () => this.$emit('created'),
       };
+    },
+    async save() {
+      this.loading = true;
 
-      const mode = this.instance ? ATTRS.update : ATTRS.create;
+      const mode = this.getMode();
       const attrs = {
         args: mode.args,
         data: mode.data,

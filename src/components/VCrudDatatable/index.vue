@@ -11,9 +11,9 @@
       v-model="editDialog.value"
       :instance="editDialog.instance"
       :headers="headersForm"
-      :methodUpdate="methodUpdate"
-      :methodCreate="methodCreate"
-      :serializeData="serializeData"
+      :method-update="methodUpdate"
+      :method-create="methodCreate"
+      :serialize-data="serializeData"
       @created="itemCreated"
       @updated="itemUpdated"
     )
@@ -77,8 +77,6 @@
 import DialogDelete from './DialogDelete.vue';
 import DialogEdit from './DialogEdit.vue';
 
-import { REGISTRATION_CRUD_PROPS } from '@/constants.ts';
-
 export default {
   components: {
     DialogDelete,
@@ -106,8 +104,6 @@ export default {
     serializeData: { type: Function, default: (data) => data },
     // Декоратор данных редактирования объекта
     serializeInstanceData: { type: Function, default: (data) => data },
-
-    ...REGISTRATION_CRUD_PROPS,
   },
   data: () => ({
     deletion: null,
