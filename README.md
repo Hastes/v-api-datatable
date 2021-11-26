@@ -1,6 +1,6 @@
 # Vue component v-api-datatable
 
-[![Build Status](https://travis-ci.org/hastes/v-api-datatable.svg?branch=master)](https://travis-ci.org/flexdinesh/npm-module-boilerplate) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.com/hastes/v-api-datatable.svg?branch=master)](https://travis-ci.com/hastes/v-api-datatable) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 **Vuetify upgraded v-datatable for server requests** ✨
 
