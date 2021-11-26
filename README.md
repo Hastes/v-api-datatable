@@ -1,14 +1,13 @@
 # Vue component v-api-datatable
-https://github.com/praveenpuglia/vuetify-daterange-picker/blob/master/package.json
 
 [![Build Status](https://travis-ci.org/hastes/v-api-datatable.svg?branch=master)](https://travis-ci.org/flexdinesh/npm-module-boilerplate) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 **Vuetify upgraded v-datatable for server requests** ✨
 
 ### Package includes 2 components
-* ### VApiDatatable
+### VApiDatatable
 Use for easy server requests. Just pass your _api methods_ and _headers_ to component and use!
-* ### VCrudDatatable
+### VCrudDatatable
 Use for CRUD server models
 
 # Features
