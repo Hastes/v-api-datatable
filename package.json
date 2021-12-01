@@ -1,11 +1,11 @@
 {
   "name": "v-api-datatable",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Vuetify upgraded v-datatable for server endpoints",
   "author": "Komarov Roman <rom541997@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --dest lib ./src/wrapper.ts",
+    "build": "vue-cli-service build --skip-plugins vuetify --target lib --dest lib ./plugin/index.ts",
     "lint": "eslint src test",
     "clean": "rimraf lib",
     "cover": "nyc --check-coverage npm run test:only",
@@ -20,10 +20,6 @@
   "files": [
     "lib"
   ],
-  "peerDependencies": {
-    "vee-validate": "^3.4",
-    "vuetify": "^2"
-  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
@@ -46,10 +42,16 @@
     "sass": "~1.32.6",
     "sass-loader": "^10.2.0",
     "typescript": "^4.4.4",
+    "vee-validate": "^3.4.14",
     "vue": "^2.6.14",
     "vue-cli-plugin-vuetify": "~2.4.3",
     "vue-template-compiler": "^2.6.14",
+    "vuetify": "^2.6.1",
     "vuetify-loader": "^1.7.0"
+  },
+  "peerDependencies": {
+    "vee-validate": "^3.4",
+    "vuetify": "^2"
   },
   "bugs": {
     "url": "https://github.com/hastes/v-api-datatable/issues"
