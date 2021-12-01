@@ -1,6 +1,6 @@
 {
   "name": "v-api-datatable",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Vuetify upgraded v-datatable for server endpoints",
   "author": "Komarov Roman <rom541997@gmail.com>",
   "scripts": {
@@ -18,26 +18,25 @@
   "main": "lib/v-api-datatable.common.js",
   "module": "lib/v-api-datatable.umd.js",
   "files": [
-    "lib",
-    "src"
+    "lib"
   ],
-  "dependencies": {
+  "peerDependencies": {
     "vee-validate": "^3.4",
     "vuetify": "^2"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.1.0",
-    "@typescript-eslint/parser": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
     "@vue/cli-plugin-babel": "^4.5.14",
     "@vue/cli-plugin-eslint": "^4.5.14",
     "@vue/cli-plugin-typescript": "^4.5.14",
     "@vue/cli-service": "^4.5.14",
     "@vue/compiler-sfc": "^3.2.20",
     "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/eslint-config-typescript": "^8.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
     "cross-env": "^7.0.3",
-    "eslint": "^7.32.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-vue": "^7.20.0",
     "pluralize": "^8.0.0",
     "prettier": "^2.4.1",
