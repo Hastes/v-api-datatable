@@ -1,4 +1,4 @@
-# Vuetify component v-api-datatable
+# Vuetify plugin VApiDatatable
 
 <p align="center">
   <a href="https://npmcharts.com/compare/v-api-datatable?minimal=true">
@@ -7,8 +7,8 @@
   <a href="https://www.npmjs.org/package/v-api-datatable">
     <img src="https://img.shields.io/npm/v/v-api-datatable.svg">
   </a>
-  <a href="http://img.badgesize.io/https://unpkg.com/v-api-datatable/lib/v-api-datatable.es.js?compression=gzip&label=gzip">
-    <img src="http://img.badgesize.io/https://unpkg.com/v-api-datatable/lib/v-api-datatable.es.js?compression=gzip&label=gzip">
+  <a href="http://img.badgesize.io/https://unpkg.com/v-api-datatable/lib/v-api-datatable.umd.js?compression=gzip&label=gzip">
+    <img src="http://img.badgesize.io/https://unpkg.com/v-api-datatable/lib/v-api-datatable.umd.js?compression=gzip&label=gzip">
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg">
