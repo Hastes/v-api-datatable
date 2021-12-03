@@ -4,8 +4,10 @@
     @input="$emit('input', $event)"
     min-width="600"
   )
-    validation-observer(ref="obs" v-slot="{ invalid, handleSubmit }")
-
+    validation-observer(
+      ref="obs"
+      v-slot="{ invalid, handleSubmit }"
+    )
       v-card
         v-card-title.headline {{ instance ? 'Редактирование' : 'Создание' }}
           v-spacer
@@ -60,7 +62,7 @@ export default {
     headers: { type: Array, required: true },
     methodCreate: { type: Function, default: null },
     methodUpdate: { type: Function, default: null },
-    // Декоратор данных перед отправкой
+    // Before save data serialize
     serializeData: { type: Function, default: (data) => data },
 
     ...REGISTRATION_CRUD_PROPS,

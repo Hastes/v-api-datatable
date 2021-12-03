@@ -1,6 +1,10 @@
 <template lang="pug">
-  .smart-table
-    v-alert.mt-2(v-if="error" type="error" outlined) {{ error }}
+  .v-api-datatable
+    v-alert.mt-2(
+      v-if="error"
+      type="error"
+      outlined
+    ) {{ error }}
 
     v-card
       v-card-text
@@ -132,8 +136,6 @@ export default {
       itemsPerPage: DEFAULT_PER_PAGE,
     },
     searchKeys: {},
-
-    VIEW_LINK_VALUE: '-view-link',
   }),
   computed: {
     pages() {

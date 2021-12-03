@@ -1,5 +1,5 @@
 <template lang="pug">
-  .smart-crud-table
+  .v-crud-datatable
     dialog-delete(
       v-if="methodDelete"
       :value="deletion"
@@ -74,7 +74,7 @@
 
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue';
 
 import DialogDelete from './DialogDelete.vue';
@@ -108,14 +108,11 @@ export default Vue.extend({
     methodCreate: { type: Function, default: null },
     methodUpdate: { type: Function, default: null },
     methodDelete: { type: Function, default: null },
-    prettifyField: {
-      type: Function,
-      default: (item: { [x: string]: any }, key: string | number) => item[key],
-    },
+    prettifyField: { type: Function, default: (item, key) => item[key] },
     // Before save data serialize
-    serializeData: { type: Function, default: (data: any) => data },
+    serializeData: { type: Function, default: (data) => data },
     // After instance load data serialize
-    serializeInstanceData: { type: Function, default: (data: any) => data },
+    serializeInstanceData: { type: Function, default: (data) => data },
 
     ...REGISTRATION_CRUD_PROPS,
   },

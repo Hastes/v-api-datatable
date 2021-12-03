@@ -20,8 +20,8 @@
           v-spacer
           v-btn(
             color="error"
-            @click="deleteItem"
             :loading="loading"
+            @click="deleteItem"
             text
           ) Да
           v-btn(

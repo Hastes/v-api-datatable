@@ -83,7 +83,7 @@ Vue.use(VApiDatatable, {
 })
 ```
 
-## Plugin options
+# Plugin options
 
 | Name           | Type       | Args           | Required | Description                             |
 | -------------- | ---------- | -------------- | -------- | --------------------------------------- |
@@ -94,11 +94,12 @@ Vue.use(VApiDatatable, {
 | preSave        | `function` | method, args   | --       | Pre save wrapper for v-crud-datatable   |
 
 
-## Props
-# v-api-datatable 
-  * method - request data from server
+# Props
+### v-api-datatable 
+  * method - request data from server. Return Promise
   * headers - [{ text, value }, {text, value }]
-  * prettify-field - wrap data every item for prettify output. Attributes: item, key(value of current header)
+  * prettifyField - { type: Function, default: (item, key) => item[key] }:
+       wrap data every item for prettify output. Attributes: item, key(value of current header)
   * external-pagination - pagination via v-pagination
   * get-data
   * get-total-items
@@ -106,7 +107,7 @@ Vue.use(VApiDatatable, {
   * get-items
   * pre-save
 
-# v-crud-datatable
+### v-crud-datatable
   * includes all v-api-datatable props
   * headers - Array<{
       text: string,
@@ -121,32 +122,36 @@ Vue.use(VApiDatatable, {
   * method-create: { type: Function, default: null }
   * method-update: { type: Function, default: null }
   * method-delete: { type: Function, default: null }
-  * serializeData: { type: Function, default: (data: any) => data } - Before save data serialize
-  * serializeInstanceData: { type: Function, default: (data: any) => data } - After instance load data serialize
+  * serialize-data: { type: Function, default: (data: any) => data } - Before save data serialize
+  * serialize-instance-data: { type: Function, default: (data: any) => data } - After instance load data serialize
 
-## Slots
-# v-api-datatable
+# Slots
+### v-api-datatable
   * search-fields: { searchKeys: any, runSearch: function }
   * expand-search-fields: { searchKeys: any }
   * search-actions: { searchKeys: any }
-  * item.<name>: { item: any, index: number }
-  * header.<name>: { header: any }
+  * item.(name): { item: any, index: number }
+  * header.(name): { header: any }
   * row: { item: any }
   * loading
   * no-data
   * no-results
 
-# v-curd-datatable
+### v-curd-datatable
   * includes all v-api-datatable props
 
-## Emits
-  *  
-
-
-Welcome to contribute!
+# Emits
+  ### v-api-datatable
+  * update(items)
+  ### v-crud-datatable
+  * item:deleted
+  * item:updated
+  * item:created
 
 ## Roadmap
 1. Add i18n
+
+Welcome to contribute!
 
 # License
 
