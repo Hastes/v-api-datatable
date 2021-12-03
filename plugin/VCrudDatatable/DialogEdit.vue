@@ -2,7 +2,7 @@
   v-dialog(
     :value="value"
     @input="$emit('input', $event)"
-    max-width="700"
+    min-width="600"
   )
     validation-observer(ref="obs" v-slot="{ invalid, handleSubmit }")
 
@@ -47,7 +47,7 @@
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 
-import { REGISTRATION_CRUD_PROPS } from '@/constants.ts';
+import { REGISTRATION_CRUD_PROPS } from '../constants.ts';
 
 export default {
   components: {

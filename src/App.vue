@@ -10,11 +10,16 @@
         h1 v-crud-datatable
         v-crud-datatable(
           :method-list="loadItems"
+          :method-create="loadItems"
+          :method-update="loadItems"
+          :method-delete="loadItems"
           :headers="headers"
         )
 </template>
 
 <script>
+import { VTextField } from 'vuetify/lib/framework';
+
 export default {
   data() {
     return {
@@ -22,11 +27,10 @@ export default {
         {
           text: 'Last name',
           value: 'last_name',
-          component: 'v-text-field',
-          rules: 'required',
+          component: VTextField,
         },
-        { text: 'First name', value: 'first_name', component: 'v-text-field' },
-        { text: 'Email', value: 'email', component: 'v-text-field' },
+        { text: 'First name', value: 'first_name', component: VTextField },
+        { text: 'Email', value: 'email', component: VTextField },
       ],
     };
   },

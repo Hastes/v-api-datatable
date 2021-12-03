@@ -4,7 +4,7 @@ import {
   GetItemsFunction,
   GetTotalItemsFunction,
   GetPerPageFunction,
-} from './components/types';
+} from './types';
 
 export const DEFAULT_PER_PAGE = 15;
 
@@ -15,7 +15,9 @@ const getTotalItems: GetTotalItemsFunction = ({ headers }) =>
 const getPerPage: GetPerPageFunction = ({ headers }) =>
   Number(headers['x-pagination-per-page']);
 
-const preSave: PreSaveFunction = (method, args) => method(args);
+const preSave: PreSaveFunction = (method, args) => {
+  return method(args);
+};
 
 /**
  * Configuration datatable
@@ -31,6 +33,5 @@ export const REGISTRATION_PROPS = {
 };
 
 export const REGISTRATION_CRUD_PROPS = {
-  inputsAttrs: { type: Object, default: () => ({}) },
   preSave: { type: Function, default: preSave },
 };

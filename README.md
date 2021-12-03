@@ -1,6 +1,19 @@
 # Vuetify component v-api-datatable
 
-[![Build Status](https://travis-ci.com/hastes/v-api-datatable.svg?branch=master)](https://travis-ci.com/hastes/v-api-datatable) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <a href="https://npmcharts.com/compare/v-api-datatable?minimal=true">
+    <img src="http://img.shields.io/npm/dm/v-api-datatable.svg">
+  </a>
+  <a href="https://www.npmjs.org/package/v-api-datatable">
+    <img src="https://img.shields.io/npm/v/v-api-datatable.svg">
+  </a>
+  <a href="http://img.badgesize.io/https://unpkg.com/v-api-datatable/lib/v-api-datatable.es.js?compression=gzip&label=gzip">
+    <img src="http://img.badgesize.io/https://unpkg.com/v-api-datatable/lib/v-api-datatable.es.js?compression=gzip&label=gzip">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg">
+  </a>
+</p>
 
 **Vuetify upgraded v-datatable for server requests** ✨
 
@@ -70,8 +83,70 @@ Vue.use(VApiDatatable, {
 })
 ```
 
+## Plugin options
+
+| Name           | Type       | Args           | Required | Description                             |
+| -------------- | ---------- | -------------- | -------- | --------------------------------------- |
+| getData        | `function` | response       | --       | Unpacking data from response            |
+| getTotalItems  | `function` | response       | --       | Unpacking total items from response     |
+| getPerPage     | `function` | response       | --       | Unpacking per page items from response  |
+| getItems       | `function` | response, data | --       | Get array items from response           |
+| preSave        | `function` | method, args   | --       | Pre save wrapper for v-crud-datatable   |
+
+
+## Props
+# v-api-datatable 
+  * method - request data from server
+  * headers - [{ text, value }, {text, value }]
+  * prettify-field - wrap data every item for prettify output. Attributes: item, key(value of current header)
+  * external-pagination - pagination via v-pagination
+  * get-data
+  * get-total-items
+  * get-per-page
+  * get-items
+  * pre-save
+
+# v-crud-datatable
+  * includes all v-api-datatable props
+  * headers - Array<{
+      text: string,
+      value: string,
+      hiddenForTable?: boolean,
+      hiddenForForm?: boolean,
+      component: [object, string],
+      props?: [object]
+    }>
+  * method-list: { type: Function, required: true }
+  * method-view: { type: Function, default: null }
+  * method-create: { type: Function, default: null }
+  * method-update: { type: Function, default: null }
+  * method-delete: { type: Function, default: null }
+  * serializeData: { type: Function, default: (data: any) => data } - Before save data serialize
+  * serializeInstanceData: { type: Function, default: (data: any) => data } - After instance load data serialize
+
+## Slots
+# v-api-datatable
+  * search-fields: { searchKeys: any, runSearch: function }
+  * expand-search-fields: { searchKeys: any }
+  * search-actions: { searchKeys: any }
+  * item.<name>: { item: any, index: number }
+  * header.<name>: { header: any }
+  * row: { item: any }
+  * loading
+  * no-data
+  * no-results
+
+# v-curd-datatable
+  * includes all v-api-datatable props
+
+## Emits
+  *  
+
 
 Welcome to contribute!
+
+## Roadmap
+1. Add i18n
 
 # License
 

@@ -16,6 +16,7 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
+    'vue/one-component-per-file': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   },

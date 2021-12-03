@@ -14,6 +14,7 @@
       :method-update="methodUpdate"
       :method-create="methodCreate"
       :serialize-data="serializeData"
+      :pre-save="preSave"
       @created="itemCreated"
       @updated="itemUpdated"
     )
@@ -73,14 +74,22 @@
 
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+
 import DialogDelete from './DialogDelete.vue';
 import DialogEdit from './DialogEdit.vue';
 
-export default {
+import { REGISTRATION_CRUD_PROPS } from '../constants';
+
+Vue.component('DialogEdit', {
+  extends: DialogEdit,
+  props: REGISTRATION_CRUD_PROPS,
+});
+
+export default Vue.extend({
   components: {
     DialogDelete,
-    DialogEdit,
   },
   props: {
     /*
@@ -99,16 +108,21 @@ export default {
     methodCreate: { type: Function, default: null },
     methodUpdate: { type: Function, default: null },
     methodDelete: { type: Function, default: null },
-    prettifyField: { type: Function, default: (item, key) => item[key] },
-    // Декоратор данных перед отправкой
-    serializeData: { type: Function, default: (data) => data },
-    // Декоратор данных редактирования объекта
-    serializeInstanceData: { type: Function, default: (data) => data },
+    prettifyField: {
+      type: Function,
+      default: (item: { [x: string]: any }, key: string | number) => item[key],
+    },
+    // Before save data serialize
+    serializeData: { type: Function, default: (data: any) => data },
+    // After instance load data serialize
+    serializeInstanceData: { type: Function, default: (data: any) => data },
+
+    ...REGISTRATION_CRUD_PROPS,
   },
   data: () => ({
     deletion: null,
     editDialog: {
-      value: null,
+      value: false,
       instance: null,
     },
   }),
@@ -152,5 +166,5 @@ export default {
       this.editDialog.instance = this.serializeInstanceData(item);
     },
   },
-};
+});
 </script>

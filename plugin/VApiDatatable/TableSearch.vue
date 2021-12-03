@@ -1,18 +1,17 @@
 <template lang="pug">
-  section.table-search
-    .table-search__form
-      slot(name="search-fields" :searchKeys="searchKeys" :runSearch="runSearch")
+  .table-search
+    slot(name="search-fields" :searchKeys="searchKeys" :runSearch="runSearch")
 
-      .table-search__buttons.d-flex.mt-2.mb-2
-        slot(name="search-actions" v-bind:runSearch="runSearch")
-          template(v-if="!hideSearchActions")
-            v-btn.mr-2(color="primary" depressed small @click="runSearch")
-              | Найти
+    .d-flex.mt-2.mb-2
+      slot(name="search-actions" v-bind:runSearch="runSearch")
+        template(v-if="!hideSearchActions")
+          v-btn.mr-2(color="primary" depressed small @click="runSearch")
+            | Найти
 
-            v-btn(@click="clearSearch" depressed small icon)
-              v-icon(small) mdi-cached
-        v-spacer
-        slot(name="settings")
+          v-btn(@click="clearSearch" depressed small icon)
+            v-icon(small) mdi-cached
+      v-spacer
+      slot(name="settings")
 </template>
 
 <script>

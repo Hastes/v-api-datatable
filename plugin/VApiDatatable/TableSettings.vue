@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-row.ma-0(justify="end")
+  .d-flex.justify-end
     template(v-if="isAbleToClear")
       v-btn.mr-2(
         icon

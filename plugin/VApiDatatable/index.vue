@@ -21,7 +21,7 @@
             table-settings(
               v-if="visibleHeaders"
               v-model="visibleHeaders"
-              :headers="preparedHeaders"
+              :headers="headers"
               :pinned-header.sync="pinnedHeader"
             )
 
@@ -50,14 +50,7 @@
                     v-for="(t, idx) in visibleHeaders"
                     :key="idx"
                   )
-                    template(v-if="viewLink && t.value === VIEW_LINK_VALUE")
-                      router-link(
-                        :to="{ name: viewLink, params: { id: props.item.id } }"
-                        :target="openInNewWindow ? '_blank' : '_self'"
-                      )
-                        v-icon(color="primary" small) remove_red_eye
                     slot(
-                      v-else
                       :name="`item.${t.value}`"
                       :item="props.item"
                       :index="getRowNumber(props.index)"
@@ -99,7 +92,7 @@ import sum from 'hash-sum';
 import TableSearch from './TableSearch.vue';
 import TableSettings from './TableSettings.vue';
 
-import { DEFAULT_PER_PAGE, REGISTRATION_PROPS } from '@/constants.ts';
+import { DEFAULT_PER_PAGE, REGISTRATION_PROPS } from '../constants.ts';
 
 /*
  * props:
@@ -111,13 +104,15 @@ import { DEFAULT_PER_PAGE, REGISTRATION_PROPS } from '@/constants.ts';
  */
 export default {
   name: 'VFetchDatatable',
-  components: { TableSearch, TableSettings },
+  components: {
+    TableSearch,
+    TableSettings,
+  },
   props: {
     method: { type: Function, required: true },
     headers: { type: Array, default: () => [] },
     prettifyField: { type: Function, default: (item, key) => item[key] },
     externalPagination: { type: Boolean, default: false },
-    viewLink: { type: String, default: '' },
 
     ...REGISTRATION_PROPS,
   },
@@ -145,18 +140,8 @@ export default {
       if (!this.pagination) return 1;
       return Math.ceil(this.totalItems / this.pagination.itemsPerPage);
     },
-    preparedHeaders() {
-      const viewLinkHeader = {
-        text: '',
-        value: this.VIEW_LINK_VALUE,
-        sortable: false,
-      };
-      const additionalHeaders = this.viewLink ? [viewLinkHeader] : [];
-      return [...additionalHeaders, ...this.headers];
-    },
     headersLength() {
       let headersLength = this.headers.length;
-      if (this.viewLink) headersLength += 1;
       if (this.$slots['actions-header']) headersLength += 1;
       return headersLength;
     },

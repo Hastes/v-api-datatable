@@ -2,13 +2,13 @@
   v-dialog(
     :value="value"
     @click:outside="close"
-    max-width="600"
+    min-width="600"
   )
     v-card
       v-card-title.headline Подтверждение удаления
-          v-spacer
-          v-btn(@click="close" icon)
-            v-icon mdi-close
+        v-spacer
+        v-btn(@click="close" icon)
+          v-icon mdi-close
       v-card-text
         span Объект
         strong(v-if="value")  {{ value.name }}
@@ -31,8 +31,10 @@
           ) Нет
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'DialogDelete',
   props: {
     value: { type: Object, default: null },
@@ -56,5 +58,5 @@ export default {
       this.loading = false;
     },
   },
-};
+});
 </script>
