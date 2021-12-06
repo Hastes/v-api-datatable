@@ -33,7 +33,7 @@ Use for CRUD server models
 
 * **Server change pagination, sort, perpage** - Just pass api methods
 * **Settings module** - Reorder, pin and hide colums. And it will be cached to local storage. 
-* **Add custom search field** - Pass your search fields via slots
+* **Add custom search field** - Pass your own search fields via slots
 
 ### VCrudDatatable
 * **Inludes all features VApiDatatable**
@@ -97,6 +97,14 @@ Vue.use(VApiDatatable, {
 | getItems       | `function` | response, data | --       | Get array items from response           |
 | preSave        | `function` | method, args   | --       | Pre save wrapper for v-crud-datatable   |
 
+## Default values for options
+```js
+const getData = (resp) => resp.data;
+const getItems = (resp, data) => data.data;
+const getTotalItems = (resp) => Number(resp.headers['x-pagination-total-count']);
+const getPerPage = (resp) => Number(resp.headers['x-pagination-per-page']);
+const preSave = (method, args) => method(args);
+```
 
 # Props
 ### v-api-datatable 
