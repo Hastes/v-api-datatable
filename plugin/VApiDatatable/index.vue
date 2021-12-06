@@ -231,7 +231,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.smart-table {
+.v-api-datatable {
+  ::v-deep table {
+    tr {
+      td:first-child,
+      th:first-child {
+        transition: all 0.1s ease-in-out;
+        transition-property: box-shadow, background;
+      }
+    }
+  }
   .pinned-first {
     ::v-deep table {
       tr {

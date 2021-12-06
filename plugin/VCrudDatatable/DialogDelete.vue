@@ -2,7 +2,7 @@
   v-dialog(
     :value="value"
     @click:outside="close"
-    min-width="600"
+    width="600"
   )
     v-card
       v-card-title.headline Подтверждение удаления

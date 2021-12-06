@@ -2,7 +2,7 @@
   v-dialog(
     :value="value"
     @input="$emit('input', $event)"
-    min-width="600"
+    width="600"
   )
     validation-observer(
       ref="obs"
