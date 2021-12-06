@@ -25,14 +25,14 @@ Use for CRUD server models
 
 # Features
 
-### VApiDatable
+### VApiDatatable
 
 * **Server change pagination, sort, perpage** - Just pass api methods
 * **Settings module** - Reorder, pin and hide colums. And it will be cached to local storage. 
 * **Add custom search field** - Pass your search fields via slots
 
-### VCrudDatable
-* **Inludes all features VApiDatable**
+### VCrudDatatable
+* **Inludes all features VApiDatatable**
 * **Create object** - Pass your create(POST) method to **method-create** prop
 * **Delete object** - Pass your delete(DELETE) method to **method-delete** prop
 * **Update object** - Pass your update(PUT) method to **method-update** prop

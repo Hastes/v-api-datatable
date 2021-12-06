@@ -8,7 +8,7 @@
 
     v-card
       v-card-text
-        table-search(
+        table-search.pb-3(
           v-if="!error"
           :searchKeys="searchKeys"
           @search="loadItems"
@@ -29,65 +29,64 @@
               :pinned-header.sync="pinnedHeader"
             )
 
-        .smart-table__wrapper
-          v-data-table(
-            v-if="!error && visibleHeaders"
-            loader-height="3"
-            v-bind="$attrs"
-            :class="{ 'pinned-first': pinnedHeader && !loading }"
-            :loading="loading"
-            :headers="visibleHeaders"
-            :headersLength="headersLength"
-            :items="items"
-            :options.sync="pagination"
-            :server-items-length="totalItems"
-            :hide-default-footer="loading || externalPagination"
-            @update:page="loadItems"
-            @update:items-per-page="loadItems"
-            @update:sort-desc="loadItems"
-          )
-            template(v-slot:item="props")
-              tr
-                slot(name="row" v-bind:item="props.item")
+        v-data-table(
+          v-if="!error && visibleHeaders"
+          loader-height="3"
+          v-bind="$attrs"
+          :class="{ 'pinned-first': pinnedHeader && !loading }"
+          :loading="loading"
+          :headers="visibleHeaders"
+          :headersLength="headersLength"
+          :items="items"
+          :options.sync="pagination"
+          :server-items-length="totalItems"
+          :hide-default-footer="loading || externalPagination"
+          @update:page="loadItems"
+          @update:items-per-page="loadItems"
+          @update:sort-desc="loadItems"
+        )
+          template(v-slot:item="props")
+            tr
+              slot(name="row" v-bind:item="props.item")
 
-                  td(
-                    v-for="(t, idx) in visibleHeaders"
-                    :key="idx"
+                td(
+                  v-for="(t, idx) in visibleHeaders"
+                  :key="idx"
+                )
+                  slot(
+                    :name="`item.${t.value}`"
+                    :item="props.item"
+                    :index="getRowNumber(props.index)"
                   )
-                    slot(
-                      :name="`item.${t.value}`"
-                      :item="props.item"
-                      :index="getRowNumber(props.index)"
-                    )
-                      span {{ prettifyField(props.item, t.value, getRowNumber(props.index)) }}
+                    span {{ prettifyField(props.item, t.value, getRowNumber(props.index)) }}
 
-            template(
-              v-for="header in visibleHeaders"
-              v-slot:[`header.${header.value}`]="props"
+          template(
+            v-for="header in visibleHeaders"
+            v-slot:[`header.${header.value}`]="props"
+          )
+            slot(
+              v-if="$scopedSlots[`header.${header.value}`]"
+              :name="`header.${header.value}`"
+              v-bind="props"
             )
-              slot(
-                v-if="$scopedSlots[`header.${header.value}`]"
-                :name="`header.${header.value}`"
-                v-bind="props"
-              )
-              span(v-else) {{ header.text }}
+            span(v-else) {{ header.text }}
 
-            template(slot="loading")
-              v-skeleton-loader(type="table-tbody")
+          template(slot="loading")
+            v-skeleton-loader(type="table-tbody")
 
-            template(slot="no-data")
-              .text-xs-center Отсутствуют данные
+          template(slot="no-data")
+            .text-xs-center Отсутствуют данные
 
-            template(slot="no-results")
-              .text-xs-center Не найдено подходящих данных
+          template(slot="no-results")
+            .text-xs-center Не найдено подходящих данных
 
-          .pt-4(v-if="externalPagination && items.length")
-            v-pagination(
-              v-model="pagination.page"
-              :disabled="loading"
-              :length="pages"
-              total-visible="10"
-            )
+        .pt-4(v-if="externalPagination && items.length")
+          v-pagination(
+            v-model="pagination.page"
+            :disabled="loading"
+            :length="pages"
+            total-visible="10"
+          )
 </template>
 
 <script>
