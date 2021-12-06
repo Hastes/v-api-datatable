@@ -15,7 +15,7 @@
   </a>
 </p>
 
-**Vuetify complex v-data-table for server requests** ✨
+**Vuetify complex v-data-table based component for server requests** ✨
 
 <p align="center">
 <img width="600px" src="https://s10.gifyu.com/images/Screen-Recording-2021-12-06-at-12.58.11-1.gif"/>
