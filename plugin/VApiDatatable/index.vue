@@ -41,24 +41,21 @@
           :options.sync="pagination"
           :server-items-length="totalItems"
           :hide-default-footer="loading || externalPagination"
+          :show-expand="isVisibleExpandHeader && $attrs['show-expand']"
           @update:page="loadItems"
           @update:items-per-page="loadItems"
           @update:sort-desc="loadItems"
         )
-          template(v-slot:item="props")
-            tr
-              slot(name="row" v-bind:item="props.item")
-
-                td(
-                  v-for="(t, idx) in visibleHeaders"
-                  :key="idx"
-                )
-                  slot(
-                    :name="`item.${t.value}`"
-                    :item="props.item"
-                    :index="getRowNumber(props.index)"
-                  )
-                    span {{ prettifyField(props.item, t.value, getRowNumber(props.index)) }}
+          template(
+            v-for="header in visibleHeaders"
+            v-slot:[`item.${header.value}`]="props"
+          )
+            slot(
+              v-if="$scopedSlots[`item.${header.value}`]"
+              :name="`item.${header.value}`"
+              v-bind="props"
+            )
+            span(v-else) {{ prettifyField(props.item, header.value) }}
 
           template(
             v-for="header in visibleHeaders"
@@ -70,6 +67,12 @@
               v-bind="props"
             )
             span(v-else) {{ header.text }}
+
+          template(v-slot:item.data-table-expand="props")
+            slot(name="item.data-table-expand" v-bind="props")
+
+          template(v-slot:expanded-item="{ headers, item }")
+            slot(name="expanded-item" v-bind="{ headers, item }")
 
           template(slot="loading")
             v-skeleton-loader(type="table-tbody")
@@ -150,6 +153,11 @@ export default {
       const sortBy = this.pagination.sortBy[0];
       if (!sortBy) return null;
       return this.pagination.sortDesc[0] ? `-${sortBy}` : sortBy;
+    },
+    isVisibleExpandHeader() {
+      return this.visibleHeaders.some(
+        (header) => header.value === 'data-table-expand',
+      );
     },
   },
   watch: {

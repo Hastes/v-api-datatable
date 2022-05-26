@@ -19,6 +19,7 @@
       @updated="itemUpdated"
     )
     v-api-datatable(
+      v-bind="$attrs"
       :headers="headersTable"
       :method="methodList"
       :prettifyField="prettifyField"
@@ -56,21 +57,16 @@
             v-icon mdi-delete
 
       template(
-        v-for="header in headers"
-        v-slot:[`item.${header.value}`]="props"
+        v-for="(_, name) in $scopedSlots"
+        v-slot:[name]="data"
       )
-        slot(:name="`item.${header.value}`" v-bind="props")
+        slot(:name="name" v-bind="data")
 
       template(
-        v-for="header in headers"
-        v-slot:[`header.${header.value}`]="props"
+        v-for="(_, name) in $slots"
+        :slot="name"
       )
-        slot(
-          v-if="$scopedSlots[`header.${header.value}`]"
-          :name="`header.${header.value}`"
-          v-bind="props"
-        )
-        span(v-else) {{ header.text }}
+        slot(:name="name")
 
 </template>
 
@@ -103,6 +99,7 @@ export default Vue.extend({
      * }>
      */
     headers: { type: Array, default: () => [] },
+    appendHeaders: { type: Array, default: () => [] },
     methodList: { type: Function, required: true },
     methodView: { type: Function, default: null },
     methodCreate: { type: Function, default: null },
@@ -126,6 +123,8 @@ export default Vue.extend({
   computed: {
     headersTable() {
       let headersTable = this.headers.filter((i) => !i.hiddenForTable);
+      let appendHeadersTable = this.appendHeaders.filter((i) => !i.hiddenForTable);
+
       if (this.methodUpdate || this.methodDelete) {
         headersTable = [
           ...headersTable,
@@ -133,7 +132,9 @@ export default Vue.extend({
             text: 'Действия',
             value: 'actions',
             sortable: false,
+            class: 'table-col-autowidth',
           },
+          ...appendHeadersTable,
         ];
       }
       return headersTable;
@@ -165,3 +166,10 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss">
+.table-col-autowidth {
+  width: 1px;
+  min-width: 1px;
+}
+</style>
