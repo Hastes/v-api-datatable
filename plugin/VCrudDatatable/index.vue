@@ -20,6 +20,7 @@
     )
     v-api-datatable(
       v-bind="$attrs"
+      v-on="$listeners"
       :headers="headersTable"
       :method="methodList"
       :prettifyField="prettifyField"
