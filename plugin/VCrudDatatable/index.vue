@@ -28,6 +28,7 @@
     )
       template(v-slot:search-actions)
         v-btn(
+          v-if="methodCreate"
           small
           color="primary"
           depressed

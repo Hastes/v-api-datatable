@@ -33,14 +33,14 @@
           v-if="!error && visibleHeaders"
           loader-height="3"
           v-bind="$attrs"
-          :class="{ 'pinned-first': pinnedHeader && !loading }"
-          :loading="loading"
+          :class="{ 'pinned-first': pinnedHeader && !generalLoading }"
+          :loading="generalLoading"
           :headers="visibleHeaders"
           :headersLength="headersLength"
-          :items="items"
+          :items="generalLoading ? [] : items"
           :options.sync="pagination"
           :server-items-length="totalItems"
-          :hide-default-footer="loading || externalPagination"
+          :hide-default-footer="generalLoading || externalPagination"
           :show-expand="isVisibleExpandHeader && $attrs['show-expand']"
           @update:page="loadItems"
           @update:items-per-page="loadItems"
@@ -86,7 +86,7 @@
         .pt-4(v-if="externalPagination && items.length")
           v-pagination(
             v-model="pagination.page"
-            :disabled="loading"
+            :disabled="generalLoading"
             :length="pages"
             total-visible="10"
           )
@@ -158,6 +158,9 @@ export default {
       return this.visibleHeaders.some(
         (header) => header.value === 'data-table-expand',
       );
+    },
+    generalLoading() {
+      return this.$attrs.loading || this.loading;
     },
   },
   watch: {
