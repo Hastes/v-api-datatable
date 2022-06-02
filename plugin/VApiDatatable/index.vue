@@ -46,6 +46,9 @@
           @update:items-per-page="loadItems"
           @update:sort-desc="loadItems"
         )
+          template(v-if="$scopedSlots.item" v-slot:item="props")
+            slot(name="item" v-bind="props")
+
           template(
             v-for="header in visibleHeaders"
             v-slot:[`item.${header.value}`]="props"
