@@ -7,6 +7,9 @@
       @close="deletion=null"
       @done="itemDeleted"
     )
+      template(v-slot:content)
+        slot(name="dialog-delete.content")
+
     dialog-edit(
       v-model="editDialog.value"
       :instance="editDialog.instance"
@@ -18,6 +21,7 @@
       @created="itemCreated"
       @updated="itemUpdated"
     )
+
     v-api-datatable(
       v-bind="$attrs"
       v-on="$listeners"

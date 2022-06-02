@@ -10,9 +10,10 @@
         v-btn(@click="close" icon)
           v-icon mdi-close
       v-card-text
-        span Объект
-        strong(v-if="value")  {{ value.name }}
-        span  будет удален
+        slot(name="content")
+          span Объект
+          strong(v-if="value")  {{ value.name }}
+          span  будет удален
 
       v-divider
       v-card-actions
