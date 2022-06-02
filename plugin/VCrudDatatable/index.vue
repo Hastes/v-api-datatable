@@ -41,7 +41,7 @@
           v-icon mdi-plus
           | Добавить
 
-      template(v-slot:item.actions="{ item }")
+      template(v-slot:item.actions="{ item, header }")
         .d-flex
           slot(name="item.actions.extra" v-bind="{ item }")
           v-btn.mr-1(
@@ -49,7 +49,7 @@
             fab
             x-small
             depressed
-            @click="openEditDialog(item)"
+            @click="header.editItem(item)"
           )
             v-icon mdi-pencil
           v-btn(
@@ -58,7 +58,7 @@
             fab
             x-small
             depressed
-            @click="deletion = item"
+            @click="header.deleteItem(item)"
           )
             v-icon mdi-delete
 
@@ -139,6 +139,8 @@ export default Vue.extend({
             value: 'actions',
             sortable: false,
             class: 'table-col-autowidth',
+            deleteItem: (item) => (this.deletion = item),
+            editItem: (item) => this.openEditDialog(item),
           },
           ...appendHeadersTable,
         ];
