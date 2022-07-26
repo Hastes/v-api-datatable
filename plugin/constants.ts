@@ -8,12 +8,12 @@ import {
 
 export const DEFAULT_PER_PAGE = 15;
 
-const getData: GetDataFunction = (resp) => resp.data;
-const getItems: GetItemsFunction = (resp, data) => data.data;
-const getTotalItems: GetTotalItemsFunction = ({ headers }) =>
-  Number(headers['x-pagination-total-count']);
-const getPerPage: GetPerPageFunction = ({ headers }) =>
-  Number(headers['x-pagination-per-page']);
+const getData: GetDataFunction = (resp) => resp;
+const getItems: GetItemsFunction = (resp) => resp.data.data;
+const getTotalItems: GetTotalItemsFunction = (data) =>
+  Number(data.headers['x-pagination-total-count']);
+const getPerPage: GetPerPageFunction = (data) =>
+  Number(data.headers['x-pagination-per-page']);
 
 const preSave: PreSaveFunction = (method, args) => {
   return method(args);

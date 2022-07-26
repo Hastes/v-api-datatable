@@ -219,12 +219,11 @@ export default {
       });
 
       this.data = await this.getData(resp);
-      this.items = this.getItems(resp, this.data);
+      this.items = this.getItems(this.data);
 
-      this.totalItems =
-        this.getTotalItems(resp, this.data) || this.items.length;
+      this.totalItems = this.getTotalItems(this.data) || this.items.length;
       this.pagination.itemsPerPage =
-        this.getPerPage(resp, this.data) || DEFAULT_PER_PAGE;
+        this.getPerPage(this.data) || DEFAULT_PER_PAGE;
 
       // Can access items via parent
       this.$emit('updated', this.items);

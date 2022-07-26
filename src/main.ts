@@ -11,13 +11,16 @@ import App from './App.vue';
 Vue.config.productionTip = false;
 
 const options: DatatablePluginOptions = {
-  getData: async (resp) => {
-    return await resp.json();
+  getData: (resp) => {
+    return resp.json();
   },
-  getTotalItems: (resp, data) => {
+  getItems: (resp) => {
+    return resp.data;
+  },
+  getTotalItems: (data) => {
     return data.total;
   },
-  getPerPage: (resp, data) => {
+  getPerPage: (data) => {
     return data.per_page;
   },
   preSave: (method, args) => {
