@@ -6,93 +6,85 @@
       outlined
     ) {{ error }}
 
-    v-card
-      v-card-text
-        table-search.pb-3(
-          v-if="!error"
-          :searchKeys="searchKeys"
-          @search="loadItems"
-          @clear="clearSearchKeys"
+    table-search.pb-3(
+      v-if="!error"
+      :searchKeys="searchKeys"
+      @search="loadItems"
+      @clear="clearSearchKeys"
+    )
+      template(v-slot:search-fields="{ searchKeys, runSearch }")
+        slot(name="search-fields" :searchKeys="searchKeys" :runSearch="runSearch")
+      template(v-slot:expand-search-fields="{ searchKeys }")
+        slot(name="expand-search-fields" :searchKeys="searchKeys")
+      template(v-slot:search-actions="{ runSearch }")
+        slot(name="search-actions" :runSearch="runSearch")
+
+      template(v-slot:settings)
+        table-settings(
+          v-if="visibleHeaders"
+          v-model="visibleHeaders"
+          :headers="headers"
+          :pinned-header.sync="pinnedHeader"
         )
-          template(v-slot:search-fields="{ searchKeys, runSearch }")
-            slot(name="search-fields" :searchKeys="searchKeys" :runSearch="runSearch")
-          template(v-slot:expand-search-fields="{ searchKeys }")
-            slot(name="expand-search-fields" :searchKeys="searchKeys")
-          template(v-slot:search-actions="{ runSearch }")
-            slot(name="search-actions" :runSearch="runSearch")
 
-          template(v-slot:settings)
-            table-settings(
-              v-if="visibleHeaders"
-              v-model="visibleHeaders"
-              :headers="headers"
-              :pinned-header.sync="pinnedHeader"
-            )
+    v-data-table(
+      v-if="!error && visibleHeaders"
+      loader-height="3"
+      v-bind="$attrs"
+      :class="{ 'pinned-first': pinnedHeader && !generalLoading }"
+      :loading="generalLoading"
+      :headers="visibleHeaders"
+      :headersLength="headersLength"
+      :items="items"
+      :options.sync="pagination"
+      :server-items-length="totalItems"
+      :hide-default-footer="generalLoading || externalPagination"
+      :show-expand="true || isVisibleExpandHeader && $attrs['show-expand']"
+      @update:page="loadItems"
+      @update:items-per-page="loadItems"
+      @update:sort-desc="loadItems"
+    )
+      template(v-if="$scopedSlots.item" v-slot:item="props")
+        slot(name="item" v-bind="props")
 
-        v-data-table(
-          v-if="!error && visibleHeaders"
-          loader-height="3"
-          v-bind="$attrs"
-          :class="{ 'pinned-first': pinnedHeader && !generalLoading }"
-          :loading="generalLoading"
-          :headers="visibleHeaders"
-          :headersLength="headersLength"
-          :items="generalLoading ? [] : items"
-          :options.sync="pagination"
-          :server-items-length="totalItems"
-          :hide-default-footer="generalLoading || externalPagination"
-          :show-expand="isVisibleExpandHeader && $attrs['show-expand']"
-          @update:page="loadItems"
-          @update:items-per-page="loadItems"
-          @update:sort-desc="loadItems"
+      template(
+        v-for="header in visibleHeaders"
+        v-slot:[`item.${header.value}`]="props"
+      )
+        slot(
+          v-if="$scopedSlots[`item.${header.value}`]"
+          :name="`item.${header.value}`"
+          v-bind="props"
         )
-          template(v-if="$scopedSlots.item" v-slot:item="props")
-            slot(name="item" v-bind="props")
+        span(v-else) {{ prettifyField(props.item, header.value) }}
 
-          template(
-            v-for="header in visibleHeaders"
-            v-slot:[`item.${header.value}`]="props"
-          )
-            slot(
-              v-if="$scopedSlots[`item.${header.value}`]"
-              :name="`item.${header.value}`"
-              v-bind="props"
-            )
-            span(v-else) {{ prettifyField(props.item, header.value) }}
+      template(
+        v-for="header in visibleHeaders"
+        v-slot:[`header.${header.value}`]="props"
+      )
+        slot(
+          v-if="$scopedSlots[`header.${header.value}`]"
+          :name="`header.${header.value}`"
+          v-bind="props"
+        )
+        span(v-else) {{ header.text }}
 
-          template(
-            v-for="header in visibleHeaders"
-            v-slot:[`header.${header.value}`]="props"
-          )
-            slot(
-              v-if="$scopedSlots[`header.${header.value}`]"
-              :name="`header.${header.value}`"
-              v-bind="props"
-            )
-            span(v-else) {{ header.text }}
+      template(v-slot:expanded-item="{ headers, item }")
+        slot(name="expanded-item" v-bind="{ headers, item }")
 
-          template(v-slot:item.data-table-expand="props")
-            slot(name="item.data-table-expand" v-bind="props")
+      template(slot="no-data")
+        .text-xs-center Отсутствуют данные
 
-          template(v-slot:expanded-item="{ headers, item }")
-            slot(name="expanded-item" v-bind="{ headers, item }")
+      template(slot="no-results")
+        .text-xs-center Не найдено подходящих данных
 
-          template(slot="loading")
-            v-skeleton-loader(type="table-tbody")
-
-          template(slot="no-data")
-            .text-xs-center Отсутствуют данные
-
-          template(slot="no-results")
-            .text-xs-center Не найдено подходящих данных
-
-        .pt-4(v-if="externalPagination && items.length")
-          v-pagination(
-            v-model="pagination.page"
-            :disabled="generalLoading"
-            :length="pages"
-            total-visible="10"
-          )
+    .pt-4(v-if="externalPagination && items.length")
+      v-pagination(
+        v-model="pagination.page"
+        :disabled="generalLoading"
+        :length="pages"
+        total-visible="10"
+      )
 </template>
 
 <script>
