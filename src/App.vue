@@ -23,6 +23,7 @@
           v-col(cols=12)
             h1 v-crud-datatable
             v-crud-datatable(
+              v-model="selected"
               :method-list="loadItems"
               :method-create="loadItems"
               :method-update="loadItems"
@@ -32,6 +33,7 @@
               :append-headers="appendHeaders"
               single-expand
               show-expand
+              show-select
             )
               template(v-slot:item.data-table-expand="{ expand, isExpanded }")
                 v-btn(color="primary" depressed small @click="expand(!isExpanded)")
@@ -68,6 +70,7 @@ export default {
       ],
       appendHeaders: [{ text: '', value: 'data-table-expand' }],
       expanded: [],
+      selected: [],
     };
   },
   methods: {

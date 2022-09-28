@@ -31,6 +31,7 @@
       v-if="!error && visibleHeaders"
       loader-height="3"
       v-bind="$attrs"
+      v-on="$listeners"
       :class="{ 'pinned-first': pinnedHeader && !generalLoading }"
       :loading="generalLoading"
       :headers="visibleHeaders"
