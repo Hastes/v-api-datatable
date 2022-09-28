@@ -4,9 +4,16 @@ import {
   GetItemsFunction,
   GetTotalItemsFunction,
   GetPerPageFunction,
+  GetPaginationInstanceFunction,
 } from './types';
 
 export const DEFAULT_PER_PAGE = 15;
+
+export const getPaginationInstance: GetPaginationInstanceFunction = () => ({
+  page: 1,
+  sortBy: [],
+  itemsPerPage: DEFAULT_PER_PAGE,
+});
 
 const getData: GetDataFunction = (resp) => resp;
 const getItems: GetItemsFunction = (resp) => resp.data.data;

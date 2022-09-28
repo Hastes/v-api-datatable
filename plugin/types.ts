@@ -4,6 +4,11 @@ export type GetDataFunction = (response: any) => object;
 export type GetItemsFunction = (response: any, data: any) => object[];
 export type GetTotalItemsFunction = (response: any, data: any) => number;
 export type GetPerPageFunction = (response: any, data: any) => number;
+export type GetPaginationInstanceFunction = () => {
+  page: number;
+  sortBy: object[];
+  itemsPerPage: number;
+};
 
 export interface DatatableHeaders {
   text: string;

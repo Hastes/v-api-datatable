@@ -31,6 +31,7 @@
               :expanded.sync="expanded"
               :headers="headers2"
               :append-headers="appendHeaders"
+              :server-per-page="false"
               single-expand
               show-expand
               show-select

@@ -94,7 +94,7 @@ import sum from 'hash-sum';
 import TableSearch from './TableSearch.vue';
 import TableSettings from './TableSettings.vue';
 
-import { DEFAULT_PER_PAGE, REGISTRATION_PROPS } from '../constants.ts';
+import { REGISTRATION_PROPS, getPaginationInstance } from '../constants.ts';
 
 /*
  * props:
@@ -104,6 +104,7 @@ import { DEFAULT_PER_PAGE, REGISTRATION_PROPS } from '../constants.ts';
  * prettifyField - wrap data every item for prettify output. Attributes: item, key(value of current header)
  * externalPagination - pagination via v-pagination
  */
+
 export default {
   name: 'VFetchDatatable',
   components: {
@@ -115,6 +116,7 @@ export default {
     headers: { type: Array, default: () => [] },
     prettifyField: { type: Function, default: (item, key) => item[key] },
     externalPagination: { type: Boolean, default: false },
+    serverPerPage: { type: Boolean, default: true },
 
     ...REGISTRATION_PROPS,
   },
@@ -128,11 +130,7 @@ export default {
     error: null,
 
     totalItems: 0,
-    pagination: {
-      page: 1,
-      sortBy: [],
-      itemsPerPage: DEFAULT_PER_PAGE,
-    },
+    pagination: getPaginationInstance(),
     searchKeys: {},
   }),
   computed: {
@@ -190,7 +188,7 @@ export default {
       this.localStorageToken = localStorageToken;
     },
     clearSearchKeys() {
-      this.pagination = null;
+      this.pagination = getPaginationInstance();
       this.loadItems();
     },
     getPaginationKeys() {
@@ -215,8 +213,10 @@ export default {
       this.items = this.getItems(this.data);
 
       this.totalItems = this.getTotalItems(this.data) || this.items.length;
-      this.pagination.itemsPerPage =
-        this.getPerPage(this.data) || DEFAULT_PER_PAGE;
+
+      if (this.getPerPage(this.data) && this.serverPerPage) {
+        this.pagination.itemsPerPage = this.getPerPage(this.data);
+      }
 
       // Can access items via parent
       this.$emit('updated', this.items);
