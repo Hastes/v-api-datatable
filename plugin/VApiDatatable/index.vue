@@ -40,7 +40,7 @@
       :options.sync="pagination"
       :server-items-length="totalItems"
       :hide-default-footer="generalLoading || externalPagination"
-      :show-expand="true || isVisibleExpandHeader && $attrs['show-expand']"
+      :show-expand="isVisibleExpandHeader && $attrs['show-expand']"
       @update:page="loadItems"
       @update:items-per-page="loadItems"
       @update:sort-desc="loadItems"
