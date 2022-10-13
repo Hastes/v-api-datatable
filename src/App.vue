@@ -12,9 +12,6 @@
               single-expand
               show-expand
             )
-              template(v-slot:item.data-table-expand="{ expand, isExpanded }")
-                v-btn(color="primary" depressed small @click="expand(!isExpanded)")
-                  span {{ isExpanded ? 'Скрыть' : 'Показать' }}
               template(v-slot:expanded-item="{ headers }")
                 td(:colspan="headers.length")
                   span test-1
@@ -36,9 +33,6 @@
               show-expand
               show-select
             )
-              template(v-slot:item.data-table-expand="{ expand, isExpanded }")
-                v-btn(color="primary" depressed small @click="expand(!isExpanded)")
-                  span {{ isExpanded ? 'Скрыть' : 'Показать' }}
               template(v-slot:expanded-item="{ headers }")
                 td(:colspan="headers.length")
                   span test-2

@@ -40,7 +40,7 @@
       :options.sync="pagination"
       :server-items-length="totalItems"
       :hide-default-footer="generalLoading || externalPagination"
-      :show-expand="isVisibleExpandHeader && $attrs['show-expand']"
+      :show-expand="showExpand"
       @update:page="loadItems"
       @update:items-per-page="loadItems"
       @update:sort-desc="loadItems"
@@ -155,6 +155,13 @@ export default {
     },
     generalLoading() {
       return this.$attrs.loading || this.loading;
+    },
+    showExpand() {
+      const hasShowExpandProperty = Object.prototype.hasOwnProperty.call(
+        this.$attrs,
+        'show-expand',
+      );
+      return hasShowExpandProperty && this.isVisibleExpandHeader;
     },
   },
   watch: {
