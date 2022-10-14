@@ -49,7 +49,7 @@
         slot(name="item" v-bind="props")
 
       template(
-        v-for="header in visibleHeaders"
+        v-for="header in unreservedHeaders(visibleHeaders, $scopedSlots)"
         v-slot:[`item.${header.value}`]="props"
       )
         slot(
@@ -60,7 +60,7 @@
         span(v-else) {{ prettifyField(props.item, header.value) }}
 
       template(
-        v-for="header in visibleHeaders"
+        v-for="header in unreservedHeaders(visibleHeaders, $scopedSlots)"
         v-slot:[`header.${header.value}`]="props"
       )
         slot(
@@ -94,7 +94,11 @@ import sum from 'hash-sum';
 import TableSearch from './TableSearch.vue';
 import TableSettings from './TableSettings.vue';
 
-import { REGISTRATION_PROPS, getPaginationInstance } from '../constants.ts';
+import {
+  REGISTRATION_PROPS,
+  RESERVED_HEADER_VALUES,
+  getPaginationInstance,
+} from '../constants.ts';
 
 /*
  * props:
@@ -132,6 +136,8 @@ export default {
     totalItems: 0,
     pagination: getPaginationInstance(),
     searchKeys: {},
+
+    RESERVED_HEADER_VALUES,
   }),
   computed: {
     pages() {
@@ -233,6 +239,15 @@ export default {
     getRowNumber(index) {
       return (
         this.pagination.itemsPerPage * (this.pagination.page - 1) + index + 1
+      );
+    },
+    // TODO: upgrade this correctly
+    unreservedHeaders(headers, $scopedSlots) {
+      console.log($scopedSlots);
+      return headers.filter(
+        (i) =>
+          !this.RESERVED_HEADER_VALUES.includes(i.value) ||
+          $scopedSlots[`item.${i.value}`],
       );
     },
     refresh() {

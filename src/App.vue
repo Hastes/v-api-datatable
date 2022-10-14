@@ -8,7 +8,7 @@
             v-api-datatable(
               :method="loadItems"
               :headers="headers1"
-              :expanded.sync="expanded"
+              :expanded.sync="expanded1"
               single-expand
               show-expand
             )
@@ -25,7 +25,7 @@
               :method-create="loadItems"
               :method-update="loadItems"
               :method-delete="loadItems"
-              :expanded.sync="expanded"
+              :expanded.sync="expanded2"
               :headers="headers2"
               :append-headers="appendHeaders"
               :server-per-page="false"
@@ -64,7 +64,8 @@ export default {
         { text: 'Email', value: 'email', component: VTextField },
       ],
       appendHeaders: [{ text: '', value: 'data-table-expand' }],
-      expanded: [],
+      expanded1: [],
+      expanded2: [],
       selected: [],
     };
   },

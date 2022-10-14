@@ -42,3 +42,5 @@ export const REGISTRATION_PROPS = {
 export const REGISTRATION_CRUD_PROPS = {
   preSave: { type: Function, default: preSave },
 };
+
+export const RESERVED_HEADER_VALUES = ['data-table-expand'];
