@@ -1,8 +1,8 @@
 <template lang="pug">
   v-dialog(
+    v-bind="{ ...defaultDialogProps, ...dialogProps }"
     :value="value"
     @click:outside="close"
-    width="600"
   )
     v-card
       v-card-title.headline Подтверждение удаления
@@ -40,9 +40,13 @@ export default Vue.extend({
   props: {
     value: { type: Object, default: null },
     method: { type: Function, required: true },
+    dialogProps: { type: Object, default: () => ({}) },
   },
   data: () => ({
     loading: false,
+    defaultDialogProps: {
+      width: '600',
+    },
   }),
   methods: {
     close() {

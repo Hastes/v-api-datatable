@@ -4,6 +4,7 @@
       v-if="methodDelete"
       :value="deletion"
       :method="methodDelete"
+      :dialog-props="dialogDeleteProps"
       @close="deletion=null"
       @done="itemDeleted"
     )
@@ -17,7 +18,9 @@
       :method-update="methodUpdate"
       :method-create="methodCreate"
       :serialize-data="serializeData"
+      :dialog-props="dialogEditProps"
       :pre-save="preSave"
+      @edit="itemEdit"
       @created="itemCreated"
       @updated="itemUpdated"
     )
@@ -101,8 +104,11 @@ export default Vue.extend({
      *  hiddenForTable?: boolean,
      *  hiddenForForm?: boolean,
      *  component: [object, string],
+     *  listeners?: function,
      *  props?: [object]
      * }>
+     *
+     * ? => is not required key/value
      */
     headers: { type: Array, default: () => [] },
     appendHeaders: { type: Array, default: () => [] },
@@ -116,6 +122,9 @@ export default Vue.extend({
     serializeData: { type: Function, default: (data) => data },
     // After instance load data serialize
     serializeInstanceData: { type: Function, default: (data) => data },
+    // Dialog props
+    dialogEditProps: { type: Object, default: () => ({}) },
+    dialogDeleteProps: { type: Object, default: () => ({}) },
 
     ...REGISTRATION_CRUD_PROPS,
   },
@@ -152,6 +161,9 @@ export default Vue.extend({
     },
   },
   methods: {
+    itemEdit(val) {
+      this.$emit('item:edit', val);
+    },
     itemDeleted() {
       this.$emit('item:deleted');
       this.refreshSmartTable();
