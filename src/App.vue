@@ -39,35 +39,34 @@
 </template>
 
 <script>
-import { VTextField } from 'vuetify/lib/framework';
+import { VTextField } from 'vuetify/lib';
 
 export default {
   data() {
     return {
-      headers1: [
-        {
-          text: 'Last name',
-          value: 'last_name',
-          component: VTextField,
-        },
-        { text: 'First name', value: 'first_name', component: VTextField },
-        { text: 'Email', value: 'email', component: VTextField },
-        { text: '', value: 'data-table-expand' },
-      ],
-      headers2: [
-        {
-          text: 'Last name',
-          value: 'last_name',
-          component: VTextField,
-        },
-        { text: 'First name', value: 'first_name', component: VTextField },
-        { text: 'Email', value: 'email', component: VTextField },
-      ],
       appendHeaders: [{ text: '', value: 'data-table-expand' }],
       expanded1: [],
       expanded2: [],
       selected: [],
+      dialogFormData: {},
     };
+  },
+  computed: {
+    headers1() {
+      return [
+        { text: 'Last name', value: 'last_name', component: VTextField },
+        { text: 'First name', value: 'first_name', component: VTextField },
+        { text: 'Email', value: 'email', component: VTextField },
+        { text: '', value: 'data-table-expand' },
+      ];
+    },
+    headers2() {
+      return [
+        { text: 'Last name', value: 'last_name', component: VTextField },
+        { text: 'First name', value: 'first_name', component: VTextField },
+        { text: 'Email', value: 'email', component: VTextField },
+      ];
+    },
   },
   methods: {
     loadItems({ params }) {

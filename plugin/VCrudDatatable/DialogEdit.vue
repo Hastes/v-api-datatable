@@ -1,12 +1,13 @@
 <template lang="pug">
   v-dialog(
+    v-bind="{ ...defaultDialogProps, ...dialogProps }"
     :value="value"
     @input="$emit('input', $event)"
-    width="600"
+    @click:outside="close"
   )
     validation-observer(
       ref="obs"
-      v-slot="{ invalid, handleSubmit }"
+      v-slot="{ invalid, handleSubmit, reset }"
     )
       v-card
         v-card-title.headline {{ instance ? 'Редактирование' : 'Создание' }}
@@ -26,6 +27,7 @@
               component(
                 v-model="editItem[header.value]"
                 v-bind="header.props"
+                v-on="header.listeners ? header.listeners(editItem) : {}"
                 :is="header.component"
                 :label="header.text"
                 :error-messages="errors"
@@ -64,6 +66,7 @@ export default {
     methodUpdate: { type: Function, default: null },
     // Before save data serialize
     serializeData: { type: Function, default: (data) => data },
+    dialogProps: { type: Object, default: () => ({}) },
 
     ...REGISTRATION_CRUD_PROPS,
   },
@@ -71,10 +74,19 @@ export default {
     loading: false,
     editItem: {},
     form: false,
+    defaultDialogProps: {
+      width: '600',
+    },
   }),
   watch: {
     instance() {
       this.init();
+    },
+    editItem: {
+      handler(val) {
+        this.$emit('edit', val);
+      },
+      deep: true,
     },
   },
   methods: {
@@ -83,6 +95,7 @@ export default {
     },
     close() {
       this.$emit('input', false);
+      this.init();
     },
     getMode() {
       if (this.instance)

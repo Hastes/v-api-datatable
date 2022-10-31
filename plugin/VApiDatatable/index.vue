@@ -45,9 +45,21 @@
       @update:items-per-page="loadItems"
       @update:sort-desc="loadItems"
     )
-      template(v-if="$scopedSlots.item" v-slot:item="props")
-        slot(name="item" v-bind="props")
+      //- Define default v-data-table slots
+      template(
+        v-for="(_, name) in $scopedSlots"
+        v-slot:[name]="data"
+      )
+        slot(:name="name" v-bind="data")
 
+      template(
+        v-for="(_, name) in $slots"
+        :slot="name"
+      )
+        slot(:name="name")
+
+      //- Overridden/additionals slots
+      //- Items
       template(
         v-for="header in unreservedHeaders(visibleHeaders, $scopedSlots)"
         v-slot:[`item.${header.value}`]="props"
@@ -59,6 +71,7 @@
         )
         span(v-else) {{ prettifyField(props.item, header.value) }}
 
+      //- Headers
       template(
         v-for="header in unreservedHeaders(visibleHeaders, $scopedSlots)"
         v-slot:[`header.${header.value}`]="props"
@@ -70,12 +83,11 @@
         )
         span(v-else) {{ header.text }}
 
-      template(v-slot:expanded-item="{ headers, item }")
-        slot(name="expanded-item" v-bind="{ headers, item }")
-
+      //- No-data
       template(slot="no-data")
         .text-xs-center Отсутствуют данные
 
+      //- No-results
       template(slot="no-results")
         .text-xs-center Не найдено подходящих данных
 
@@ -243,7 +255,6 @@ export default {
     },
     // TODO: upgrade this correctly
     unreservedHeaders(headers, $scopedSlots) {
-      console.log($scopedSlots);
       return headers.filter(
         (i) =>
           !this.RESERVED_HEADER_VALUES.includes(i.value) ||
