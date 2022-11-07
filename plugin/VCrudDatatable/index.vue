@@ -45,7 +45,7 @@
           | Добавить
 
       template(v-slot:item.actions="{ item, header }")
-        .d-flex
+        div.d-flex(:class="header.cellClass")
           slot(name="item.actions.extra" v-bind="{ item }")
           v-btn.mr-1(
             v-if="methodUpdate"
@@ -92,6 +92,8 @@ Vue.component('DialogEdit', {
   props: REGISTRATION_CRUD_PROPS,
 });
 
+const ACTIONS_HEADER_VALUE = 'actions';
+
 export default Vue.extend({
   components: {
     DialogDelete,
@@ -103,12 +105,13 @@ export default Vue.extend({
      *  value: string,
      *  hiddenForTable?: boolean,
      *  hiddenForForm?: boolean,
+     *  hiddenForEdit?: boolean,
      *  component: [object, string],
      *  listeners?: function,
      *  props?: [object]
      * }>
      *
-     * ? => is not required key/value
+     * ? => is not required prop
      */
     headers: { type: Array, default: () => [] },
     appendHeaders: { type: Array, default: () => [] },
@@ -137,17 +140,28 @@ export default Vue.extend({
   }),
   computed: {
     headersTable() {
-      let headersTable = this.headers.filter((i) => !i.hiddenForTable);
-      let appendHeadersTable = this.appendHeaders.filter((i) => !i.hiddenForTable);
+      const filterHeaders = (headers) => {
+        return headers.filter(
+          (i) => !i.hiddenForTable && i.value !== ACTIONS_HEADER_VALUE,
+        );
+      };
+
+      const headerActions = this.headers.find((i) => i.value === ACTIONS_HEADER_VALUE);
+      const appendHeadersTable = filterHeaders(this.appendHeaders);
+      let headersTable = filterHeaders(this.headers);
 
       if (this.methodUpdate || this.methodDelete) {
         headersTable = [
           ...headersTable,
           {
+            // Dynamic
             text: 'Действия',
-            value: 'actions',
-            sortable: false,
             class: 'table-col-autowidth',
+            ...headerActions,
+
+            // Static
+            sortable: false,
+            value: ACTIONS_HEADER_VALUE,
             deleteItem: (item) => (this.deletion = item),
             editItem: (item) => this.openEditDialog(item),
           },

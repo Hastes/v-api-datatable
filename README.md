@@ -126,9 +126,12 @@ const preSave = (method, args) => method(args);
       value: string,
       hiddenForTable?: boolean,
       hiddenForForm?: boolean,
+      hiddenForEdit?: boolean,
       component: [object, string],
+      listeners?: function,
       props?: [object]
     }>
+  * append-headers: { type: Array<headers>, default: () => [] } - headers after actions
   * method-list: { type: Function, required: true }
   * method-view: { type: Function, default: null }
   * method-create: { type: Function, default: null }
@@ -136,9 +139,12 @@ const preSave = (method, args) => method(args);
   * method-delete: { type: Function, default: null }
   * serialize-data: { type: Function, default: (data: any) => data } - Before save data serialize
   * serialize-instance-data: { type: Function, default: (data: any) => data } - After instance load data serialize
+  * dialog-edit-props: { type: Object, default: () => ({}) }
+  * dialog-delete-props: { type: Object, default: () => ({}) }
 
 # Slots
 ### v-api-datatable
+  * includes all v-data-table slots
   * search-fields: { searchKeys: any, runSearch: function }
   * expand-search-fields: { searchKeys: any }
   * search-actions: { searchKeys: any }
@@ -151,11 +157,13 @@ const preSave = (method, args) => method(args);
 
 ### v-curd-datatable
   * includes all v-api-datatable props
+  * item.actions.extra: { item: any }
 
 # Emits
   ### v-api-datatable
   * update(items)
   ### v-crud-datatable
+  * item:edit
   * item:deleted
   * item:updated
   * item:created

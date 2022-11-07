@@ -16,7 +16,7 @@
             v-icon mdi-close
 
         v-card-text.py-4
-          template(v-for="header in headers")
+          template(v-for="header in filteredHeaders")
             validation-provider(
               :key="header.value"
               :name="header.text"
@@ -78,6 +78,14 @@ export default {
       width: '600',
     },
   }),
+  computed: {
+    filteredHeaders() {
+      return this.headers.filter((i) => {
+        if (i.hiddenForEdit) return i.hiddenForEdit === !this.instance;
+        return true;
+      });
+    },
+  },
   watch: {
     instance() {
       this.init();
