@@ -5,11 +5,12 @@
       :value="deletion"
       :method="methodDelete"
       :dialog-props="dialogDeleteProps"
+      :deletion-text-value="deletionTextValue"
       @close="deletion=null"
       @done="itemDeleted"
     )
-      template(v-slot:content)
-        slot(name="dialog-delete.content")
+      template(v-slot:content="props")
+        slot(name="dialog-delete.content" v-bind="props")
 
     dialog-edit(
       v-model="editDialog.value"
@@ -128,6 +129,7 @@ export default Vue.extend({
     // Dialog props
     dialogEditProps: { type: Object, default: () => ({}) },
     dialogDeleteProps: { type: Object, default: () => ({}) },
+    deletionTextValue: { type: String, default: 'name' },
 
     ...REGISTRATION_CRUD_PROPS,
   },

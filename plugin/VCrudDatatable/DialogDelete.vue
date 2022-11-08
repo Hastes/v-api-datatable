@@ -10,10 +10,8 @@
         v-btn(@click="close" icon)
           v-icon mdi-close
       v-card-text
-        slot(name="content")
-          span Объект
-          strong(v-if="value")  {{ value.name }}
-          span  будет удален
+        slot(name="content" v-bind="{ value }").
+          Объект #[strong(v-if="value") {{ textValue }}] будет удален
 
       v-divider
       v-card-actions
@@ -40,6 +38,7 @@ export default Vue.extend({
   props: {
     value: { type: Object, default: null },
     method: { type: Function, required: true },
+    deletionTextValue: { type: String, default: 'name' },
     dialogProps: { type: Object, default: () => ({}) },
   },
   data: () => ({
@@ -48,6 +47,12 @@ export default Vue.extend({
       width: '600',
     },
   }),
+  computed: {
+    textValue(): string {
+      const { value, deletionTextValue } = this;
+      return value ? value[deletionTextValue] : '';
+    },
+  },
   methods: {
     close() {
       this.$emit('close');

@@ -141,6 +141,7 @@ const preSave = (method, args) => method(args);
   * serialize-instance-data: { type: Function, default: (data: any) => data } - After instance load data serialize
   * dialog-edit-props: { type: Object, default: () => ({}) }
   * dialog-delete-props: { type: Object, default: () => ({}) }
+  * deletion-text-value: { type: String, default: 'name' }
 
 # Slots
 ### v-api-datatable

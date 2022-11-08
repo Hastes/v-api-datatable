@@ -29,10 +29,14 @@
               :headers="headers2"
               :append-headers="appendHeaders"
               :server-per-page="false"
+              deletion-text-value="first_name"
               single-expand
               show-expand
               show-select
             )
+              template(v-slot:dialog-delete.content="{ value }").
+                Объект #[strong(v-if="value") {{ value.first_name }} {{ value.last_name }}] будет удалён
+
               template(v-slot:expanded-item="{ headers }")
                 td(:colspan="headers.length")
                   span test-2
