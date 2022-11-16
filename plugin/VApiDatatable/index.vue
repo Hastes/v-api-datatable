@@ -148,7 +148,7 @@ export default {
 
     totalItems: 0,
     pagination: getPaginationInstance(),
-    searchKeys: this.searchKeysInitial,
+    searchKeys: {},
 
     RESERVED_HEADER_VALUES,
   }),
@@ -184,6 +184,12 @@ export default {
     },
   },
   watch: {
+    searchKeysInitial: {
+      handler(val) {
+        this.searchKeys = val;
+      },
+      immediate: true,
+    },
     visibleHeaders(val) {
       window.localStorage.setItem(this.localStorageToken, JSON.stringify(val));
     },
