@@ -133,6 +133,7 @@ export default {
     prettifyField: { type: Function, default: (item, key) => item[key] },
     externalPagination: { type: Boolean, default: false },
     serverPerPage: { type: Boolean, default: true },
+    searchKeysInitial: { type: Object, default: () => ({}) },
 
     ...REGISTRATION_PROPS,
   },
@@ -147,7 +148,7 @@ export default {
 
     totalItems: 0,
     pagination: getPaginationInstance(),
-    searchKeys: {},
+    searchKeys: this.searchKeysInitial,
 
     RESERVED_HEADER_VALUES,
   }),

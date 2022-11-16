@@ -31,7 +31,8 @@
       v-on="$listeners"
       :headers="headersTable"
       :method="methodList"
-      :prettifyField="prettifyField"
+      :prettify-field="prettifyField"
+      :search-keys-initial="searchKeysInitial"
       ref="apiDatatable"
     )
       template(v-slot:search-actions)
@@ -130,6 +131,7 @@ export default Vue.extend({
     dialogEditProps: { type: Object, default: () => ({}) },
     dialogDeleteProps: { type: Object, default: () => ({}) },
     deletionTextValue: { type: String, default: 'name' },
+    searchKeysInitial: { type: Object, default: () => ({}) },
 
     ...REGISTRATION_CRUD_PROPS,
   },
