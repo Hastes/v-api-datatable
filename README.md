@@ -42,7 +42,8 @@ Use for CRUD server models
 * **Update object** - Pass your update(PUT) method to **method-update** prop
 
 # Requirements
-* Vuetify 2.x
+* Vee-validate 3.x
+* Vuetify 2.x **(only with vuetify-loader)**
 * Vue 2.x
 
 # Installation

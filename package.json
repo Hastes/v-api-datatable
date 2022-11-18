@@ -1,6 +1,6 @@
 {
   "name": "v-api-datatable",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "Vuetify upgraded v-datatable for server endpoints",
   "author": "Komarov Roman <rom541997@gmail.com>",
   "scripts": {
@@ -51,7 +51,7 @@
     "vuetify-loader": "^1.7.0"
   },
   "peerDependencies": {
-    "vee-validate": "^3.4",
+    "vee-validate": "^3",
     "vuetify": "^2"
   },
   "bugs": {
