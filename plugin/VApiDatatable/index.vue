@@ -12,13 +12,6 @@
       @search="loadItems"
       @clear="clearSearchKeys"
     )
-      template(v-slot:search-fields="{ searchKeys, runSearch }")
-        slot(name="search-fields" :searchKeys="searchKeys" :runSearch="runSearch")
-      template(v-slot:expand-search-fields="{ searchKeys }")
-        slot(name="expand-search-fields" :searchKeys="searchKeys")
-      template(v-slot:search-actions="{ runSearch }")
-        slot(name="search-actions" :runSearch="runSearch")
-
       template(v-slot:settings)
         table-settings(
           v-if="visibleHeaders"
@@ -26,6 +19,8 @@
           :headers="headers"
           :pinned-header.sync="pinnedHeader"
         )
+          template(v-slot:activator="props")
+            slot(name="settings.activator" v-bind="props")
 
     v-data-table(
       v-if="!error && visibleHeaders"

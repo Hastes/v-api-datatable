@@ -1,13 +1,5 @@
 <template lang="pug">
   .d-flex.justify-end
-    template(v-if="isAbleToClear")
-      v-btn.mr-2(
-        icon
-        small
-        @click="reset"
-      )
-        v-icon(small) mdi-close
-
     v-menu(
       v-model="menu"
       :close-on-content-click="false"
@@ -16,13 +8,15 @@
       min-width="290px"
     )
       template(v-slot:activator="{ on }")
-        v-btn(
-          v-on="on"
-          text
-          small
-        )
-          span.mr-2 Настройки
-          v-icon(small) mdi-cog
+        slot(name="activator" v-bind="{ on }")
+          v-badge(
+            color="primary"
+            :content="excludedHeaders.length"
+            :value="excludedHeaders.length"
+            overlap
+          )
+            v-btn(icon v-on="on")
+              v-icon mdi-cog
       v-card
         .d-flex.justify-center.pa-2
           v-btn.mr-2.flex-grow-1(

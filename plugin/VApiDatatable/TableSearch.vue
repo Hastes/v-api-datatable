@@ -1,16 +1,20 @@
 <template lang="pug">
-  .table-search
-    slot(name="search-fields" :searchKeys="searchKeys" :runSearch="runSearch")
+  .table-search.d-flex.align-center.px-2.pt-2
+    slot(name="search-field" v-bind="{ searchKeys, runSearch }")
+      v-text-field(
+        dense
+        solo
+        flat
+        hide-details
+        label="Search"
+        color="grey darken-1"
+        background-color="grey lighten-3"
+      )
+        template(v-slot:prepend-inner)
+          v-btn(icon).mr-2
+            v-icon mdi-magnify
 
-    .d-flex.mt-2.mb-2
-      slot(name="search-actions" v-bind:runSearch="runSearch")
-        template(v-if="!hideSearchActions")
-          v-btn.mr-2(color="primary" depressed small @click="runSearch")
-            | Найти
-
-          v-btn(@click="clearSearch" depressed small icon)
-            v-icon(small) mdi-cached
-      v-spacer
+    .ml-2
       slot(name="settings")
 </template>
 
@@ -21,9 +25,6 @@ export default {
     hideSearchActions: { type: Boolean, default: false },
     searchKeys: { type: Object, default: () => ({}) },
   },
-  data: () => ({
-    isExpandOpened: false,
-  }),
   created() {
     /**
      * Поиск по клику Enter и
