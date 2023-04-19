@@ -9,13 +9,13 @@
       ref="obs"
       v-slot="{ invalid, handleSubmit, reset }"
     )
-      v-card
+      v-card.d-flex.flex-column.fill-height
         v-card-title.headline {{ instance ? 'Редактирование' : 'Создание' }}
           v-spacer
           v-btn(@click="close" icon)
             v-icon mdi-close
 
-        v-card-text.py-4
+        v-card-text.flex-grow-1.py-4
           template(v-for="header in filteredHeaders")
             validation-provider(
               :key="header.value"
