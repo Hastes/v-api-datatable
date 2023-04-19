@@ -6,10 +6,11 @@
     @click:outside="close"
   )
     validation-observer(
+      slim
       ref="obs"
       v-slot="{ invalid, handleSubmit, reset }"
     )
-      v-card.d-flex.flex-column.fill-height
+      v-card.d-flex.flex-column(width="100%" height="initial")
         v-card-title.headline {{ instance ? 'Редактирование' : 'Создание' }}
           v-spacer
           v-btn(@click="close" icon)
